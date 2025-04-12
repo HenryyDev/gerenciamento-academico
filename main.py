@@ -1,6 +1,6 @@
 # Nome: Henrique Luiz Ribeiro 
 # Curso: Análise e desenvolvimento de sistemas
-
+from collections import namedtuple
 # função principal 
 def main():
    # matriz contendo as op do menu principal
@@ -23,7 +23,7 @@ def main():
 
     #array para armazenar estudantes
     estudantes=[]
-
+    dados_estudantes=namedtuple('dados_estudantes',["codigo",'nome','cpf'])
     # loop principal do sistema
     while True:
       print("+-----------MENU PRINCIPAL------------+\n")
@@ -69,28 +69,78 @@ def main():
                ## para incluir estudantes
                elif acao_desejada==1 and opcao_selecionada==1:
                   print("========== INCLUSÃO====================")
+                  codigo_estudante=int(input("Digite o codigo do estudante: "))
                   nome_estudante=str(input("Digite o nome do estudante: "))
-                  estudantes.append(nome_estudante)
+                  cpf_estudante=str(input("Digite o cpf do estudante: "))
+                  dado_estudante=dados_estudantes(codigo_estudante,nome_estudante,cpf_estudante)
+                  estudantes.append(dado_estudante)
                   print("Aguarde...")
                   input("Pressione ENTER para continuar")
                   print("Solicitação de inclusão concluída com sucesso!")
                   continue
 
-               ## demais op de inclusao
+               ## listar estudantes
+               elif acao_desejada == 2 and opcao_selecionada == 1:
+                  print("========== LISTAGEM ===================")
+                  if len(estudantes) < 1:
+                      print("==== Não há estudantes cadastrados ====")
+                  else:
+                      print("+-------------------------------------+")
+                      print("| Código   | Nome           | CPF           ")
+                      print("+-------------------------------------+")
+                      for estudante in estudantes:
+                          print(f"| {estudante.codigo:<8} | {estudante.nome:<14} | {estudante.cpf:<12} ")
+                      print("+-------------------------------------+")
+                  input("Pressione ENTER para continuar")
+               elif acao_desejada==3 and opcao_selecionada==1:
+                  print("==========ATUALIZAR==============")
+                  if len(estudantes) < 1:
+                      print("==== Não há estudantes cadastrados ====")
+                  else:
+                     codigo_atualizar=int(input("Digite o codigo do estudante que deseja atualizar: "))
+                     estudante_encontrado=None
+                     for i, estudante in enumerate(estudantes):
+                        if estudante.codigo==codigo_atualizar:
+                           estudante_encontrado=i
+                           break
+                     if estudante_encontrado is not None:
+                        print(f"Estudante encontrado: {estudantes[estudante_encontrado].nome}")
+                        novo_nome=input("Digite o novo nome do estudante: ")
+                        novo_cpf=input("Digite o novo cpf do estudante: ")
+                        if novo_nome is not None and novo_cpf is not None:
+                           estudantes[estudante_encontrado]=dados_estudantes(codigo=codigo_atualizar,nome=novo_nome,cpf=novo_cpf)
+                           print("Dados atualizados com sucesso!")
+                           input("Pressione ENTER para continuar")
+                        else:
+                           print("Dados inválidos!")
+
+               elif acao_desejada==4 and opcao_selecionada==1:
+                  print("==========EXCLUSÃO=======================")
+                  if len(estudantes) < 1:
+                      print("==== Não há estudantes cadastrados ====")
+                  else:
+                     codigo_atualizar=int(input("Digite o codigo do estudante que deseja excluir: "))
+                     estudante_encontrado=None
+                     for i, estudante in enumerate(estudantes):
+                        if estudante.codigo==codigo_atualizar:
+                           estudante_encontrado=i
+                           break
+                     if estudante_encontrado is not None:
+                        print(f"Estudante encontrado: {estudantes[estudante_encontrado].nome}")
+                        print("Deseja realmente excluir o estudante? (s/n)")
+                        confirmacao=input("Digite a opção desejada: ")
+                        if confirmacao=="s":
+                           estudantes.pop(estudante_encontrado)
+                           print("Estudante excluído com sucesso!")
+                           input("Pressione ENTER para continuar")
+                           continue
+                        else:
+                           print("Exclusão cancelada!")
+                           input("Pressione ENTER para continuar")
+                           continue
+                ## demais op de inclusao
                elif acao_desejada==1 :
                   print("==========EM DESENVOLVIMENTO============")
-
-               ## listar estudantes
-               elif acao_desejada==2 and opcao_selecionada==1:
-                  print("========== LISTAGEM ===================")
-                  if len(estudantes)<1:
-                     print("\n====Não há estudantes cadastrados===")
-                  else:
-                     for estudante in estudantes:
-                        print(f"- {estudante}")
-                        input("Pressione ENTER para continuar")
-                  continue
-               
                ##listar demais op
                elif acao_desejada==2:
                   print("==========EM DESENVOLVIMENTO============")
@@ -115,7 +165,7 @@ def main():
 
       ## caso o user digite algum numero diferente das op validas     
       else:
-         print("\nOpção inválida! Tente novamente.\n")
+         print("Opção inválida! Tente novamente.\n")
          
 ## chamada da função principal  
 main()
