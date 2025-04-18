@@ -1,3 +1,4 @@
+from validacoes import validacao_input_inteiro
 def menu_principal():
     opcoes = [
         ["1", "Gerenciar estudantes"],
@@ -11,7 +12,7 @@ def menu_principal():
     for opcao in opcoes:
         print(f"| ({opcao[0]})  {opcao[1]:<30} |")
     print("\n+-------------------------------------+")
-    return int(input("Escolha a opção desejada: "))
+    return validacao_input_inteiro("Escolha a opção desejada: ")
 
 def menu_crud(opcao_selecionada):
     print(f"\n****[{opcao_selecionada}] MENU DE OPERAÇÕES*****\n")
@@ -25,4 +26,4 @@ def menu_crud(opcao_selecionada):
     for opcao in opcoes:
         print(f"| ({opcao[0]})  {opcao[1]:<30} |")
     print("\n+-------------------------------------+")
-    return int(input("Informe a ação desejada: "))
+    return validacao_input_inteiro("Informe a ação desejada: ")

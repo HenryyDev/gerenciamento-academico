@@ -1,7 +1,5 @@
 from menus import menu_principal
 from estudantes import crud_estudantes
-
-
 def main():
     while True:
         opcao = menu_principal()
@@ -12,5 +10,4 @@ def main():
             crud_estudantes()
         else:
             print("\n==========EM DESENVOLVIMENTO============\n")
-
 main()
