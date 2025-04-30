@@ -18,3 +18,6 @@ def validacao_cpf(cpf):
         print("\nCPF inválido! O CPF deve conter 11 dígitos numéricos e não pode ser vazio.")
         return False
     return True
+
+def pause():
+    input("Pressione ENTER para continuar")
