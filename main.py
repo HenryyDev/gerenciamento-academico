@@ -3,6 +3,7 @@ from estudantes import crud_estudantes
 from professores import crud_professores
 from disciplinas import crud_disciplinas
 from turmas import crud_turmas
+from matriculas import crud_matriculas
 def main():
     while True:
         opcao = menu_principal()
@@ -17,6 +18,8 @@ def main():
             crud_disciplinas()
         elif opcao == 4:
             crud_turmas()
+        elif opcao == 5:
+            crud_matriculas()
         else:
             print("\n==========EM DESENVOLVIMENTO============\n")
 main()
