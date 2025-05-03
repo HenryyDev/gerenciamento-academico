@@ -1,14 +1,15 @@
 from collections import namedtuple
+import os
 from menus import menu_crud
 from validacoes import validacao_input_inteiro,pause
 from armazenamento import salvar_lista, carregar_lista
 dados_matriculas = namedtuple("dados_matriculas", ["codigo_turma","codigo_estudante"])
 matriculas = []
-ARQUIVO_MATRICULAS = "matriculas.json"
+PASTA_DADOS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dados")
+ARQUIVO_MATRICULAS = os.path.join(PASTA_DADOS, "matriculas.json")
 matriculas = carregar_lista(ARQUIVO_MATRICULAS, dados_matriculas)
 def incluir_matriculas():
     print("========== INCLUSÃO MATRICULAS ====================")
-   
     codigo_turma = validacao_input_inteiro("Digite o código da turma: ")
     codigo_estudante = validacao_input_inteiro("Digite o código do estudante: ")
     if any(m.codigo_turma == codigo_turma and m.codigo_estudante == codigo_estudante for m in matriculas):
@@ -74,7 +75,7 @@ def excluir_matriculas():
 
 def crud_matriculas():
     while True:
-        opcao = menu_crud("matriculas")
+        opcao = menu_crud("MATRICULAS")
         if opcao == 9:
             break
         elif opcao == 1:

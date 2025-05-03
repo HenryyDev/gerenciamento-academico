@@ -1,10 +1,12 @@
+import os
 from collections import namedtuple
 from menus import menu_crud
 from validacoes import validacao_input_inteiro,pause
 from armazenamento import salvar_lista, carregar_lista
 dados_turmas = namedtuple("dados_turmas", ["codigo_turma", "codigo_professor","codigo_disciplina"])
 turmas = []
-ARQUIVO_TURMAS = "turmas.json"
+PASTA_DADOS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dados")
+ARQUIVO_TURMAS = os.path.join(PASTA_DADOS, "turmas.json")
 turmas = carregar_lista(ARQUIVO_TURMAS, dados_turmas)
 
 def incluir_turmas():

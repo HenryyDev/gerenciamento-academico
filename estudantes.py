@@ -1,13 +1,14 @@
 from collections import namedtuple
+import os
 from menus import menu_crud
 from validacoes import validacao_nome, validacao_cpf, validacao_input_inteiro,pause
 from armazenamento import salvar_lista, carregar_lista
 # Definição do namedtuple e variáveis
 dados_estudantes = namedtuple("dados_estudantes", ["codigo", "nome", "cpf"])
+## para salvar os dados na pasta dados
+PASTA_DADOS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dados")
+ARQUIVO_ESTUDANTES = os.path.join(PASTA_DADOS,"estudantes.json")
 estudantes = []
-ARQUIVO_ESTUDANTES = "estudantes.json"
-
-
 estudantes = carregar_lista(ARQUIVO_ESTUDANTES, dados_estudantes)
 
 # Função para incluir novo estudante
@@ -19,12 +20,10 @@ def incluir_estudante():
             print("Já existe um estudante com esse código. Tente outro.")
         else:
             break
-
     while True:
         nome = input("Digite o nome do estudante: ").strip()
         if validacao_nome(nome):
             break
-
     while True:
         cpf = input("Digite o CPF do estudante: ").strip()
         if not validacao_cpf(cpf):
@@ -33,8 +32,6 @@ def incluir_estudante():
             print("Já existe um estudante com esse CPF. Tente outro.")
         else:
             break
-
-
     estudante = dados_estudantes(codigo, nome, cpf)
     estudantes.append(estudante)
     salvar_lista(ARQUIVO_ESTUDANTES, estudantes)
@@ -61,28 +58,23 @@ def atualizar_estudante():
     if not estudantes:
         print("==== Não há estudantes cadastrados ====")
         return
-
     codigo = validacao_input_inteiro("Digite o código do estudante: ")
     for i, e in enumerate(estudantes):
         if e.codigo == codigo:
             print(f"Estudante encontrado: {e.nome}")
-
             while True:
                 nome = input("Digite o novo nome: ").strip()
                 if validacao_nome(nome):
                     break
-
             while True:
                 cpf = input("Digite o novo CPF: ").strip()
                 if validacao_cpf(cpf):
                     break
-
             estudantes[i] = dados_estudantes(codigo, nome, cpf)
             salvar_lista(ARQUIVO_ESTUDANTES, estudantes)
             print("Dados atualizados com sucesso!")
             pause()
             return
-
     print("Estudante não encontrado.")
     pause()
 
@@ -92,7 +84,6 @@ def excluir_estudante():
     if not estudantes:
         print("==== Não há estudantes cadastrados ====")
         return
-
     codigo = validacao_input_inteiro("Digite o código do estudante: ")
     for i, e in enumerate(estudantes):
         if e.codigo == codigo:
@@ -105,7 +96,6 @@ def excluir_estudante():
                 print("Exclusão cancelada.")
             pause()
             return
-
     print("Estudante não encontrado.")
     pause()
 

@@ -1,10 +1,12 @@
 from collections import namedtuple
+import os
 from menus import menu_crud
 from validacoes import validacao_nome, validacao_input_inteiro,pause
 from armazenamento import salvar_lista, carregar_lista
 dados_disciplinas = namedtuple("dados_disciplinas", ["codigo", "nome"])
 disciplinas = []
-ARQUIVO_DISCIPLINAS = "disciplinas.json"
+PASTA_DADOS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dados")
+ARQUIVO_DISCIPLINAS = os.path.join(PASTA_DADOS,"disciplinas.json")
 disciplinas = carregar_lista(ARQUIVO_DISCIPLINAS, dados_disciplinas)
 
 def incluir_disciplinas():

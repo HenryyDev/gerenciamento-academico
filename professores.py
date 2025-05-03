@@ -1,11 +1,12 @@
 from collections import namedtuple
+import os
 from menus import menu_crud
 from validacoes import validacao_nome, validacao_cpf, validacao_input_inteiro,pause
 from armazenamento import salvar_lista, carregar_lista
 dados_professores = namedtuple("dados_professores", ["codigo", "nome", "cpf"])
 professores = []
-ARQUIVO_PROFESSORES = "professores.json"
-
+PASTA_DADOS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dados")
+ARQUIVO_PROFESSORES =os.path.join(PASTA_DADOS, "professores.json")
 professores = carregar_lista(ARQUIVO_PROFESSORES, dados_professores)
 
 def incluir_professores():
@@ -113,6 +114,5 @@ def crud_professores():
             excluir_professor()
         else:
             print("Opção inválida.")
-
 
 
