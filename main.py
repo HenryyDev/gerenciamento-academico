@@ -1,3 +1,5 @@
+## Aluno: Henrique Luiz Ribeiro
+## Curso: Análise e Desenvolvimento de Sistemas
 from menus import menu_principal
 from estudantes import crud_estudantes
 from professores import crud_professores
