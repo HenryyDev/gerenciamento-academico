@@ -1,9 +1,14 @@
 import json
 import os
-
 def salvar_lista(caminho_arquivo, lista_objetos):
+    # Garante que a pasta existe
+    pasta = os.path.dirname(caminho_arquivo)
+    if not os.path.exists(pasta):
+        os.makedirs(pasta)
+
     with open(caminho_arquivo, "w", encoding="utf-8") as f:
         json.dump([obj._asdict() for obj in lista_objetos], f, ensure_ascii=False, indent=4)
+
 
 def carregar_lista(caminho_arquivo, tipo_namedtuple):
     if os.path.exists(caminho_arquivo):
